@@ -52,4 +52,8 @@ public class ScheduleService {
 		Date day = new Date();
 		return scheduleRepository.getScheduleHistory(day);
 	}
+	
+	public ArrayList<Schedule> getScheduleTimeByDay(Date id) {
+		return scheduleRepository.getScheduleTimeByDay(id);
+	}
 }

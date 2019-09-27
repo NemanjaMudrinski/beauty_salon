@@ -21,15 +21,25 @@ public class Reservation {
 	
 	private Date reservationMade = Calendar.getInstance().getTime();
 	
-	@ManyToOne(cascade= {CascadeType.REFRESH, CascadeType.MERGE})
+	@ManyToOne()
 	private Schedule schedule;
 	
-	@ManyToOne(cascade= {CascadeType.REFRESH, CascadeType.MERGE})
+	@ManyToOne(cascade= {CascadeType.MERGE})
 	private Client client;
 	
 	public Reservation() {
 		
 	}
+	
+	
+	public Reservation(Boolean confirmed, Date reservationMade, Schedule schedule, Client client) {
+		super();
+		this.confirmed = confirmed;
+		this.reservationMade = reservationMade;
+		this.schedule = schedule;
+		this.client = client;
+	}
+
 
 	public Long getId() {
 		return id;

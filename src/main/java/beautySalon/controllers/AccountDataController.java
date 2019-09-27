@@ -10,11 +10,13 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.fasterxml.jackson.annotation.JsonView;
 
 import beautySalon.models.AccountData;
+import beautySalon.models.Email;
 import beautySalon.services.AccountDataService;
 import beautySalon.utils.View.HideOptionalProperties;
 
@@ -31,6 +33,12 @@ public class AccountDataController {
     public ResponseEntity<Iterable<AccountData>> getAccountData() {
         return new ResponseEntity<Iterable<AccountData>>(accountDataService.getAllAccoutDatas(), HttpStatus.OK);
     }
+	
+	@RequestMapping(value="/sendMail", method=RequestMethod.POST)
+	public ResponseEntity<Email> sendEmail(@RequestBody Email email) {
+		accountDataService.sendMail(email);
+		return new ResponseEntity<Email>(email, HttpStatus.CREATED);
+	}
 
     @JsonView(HideOptionalProperties.class)
     @RequestMapping(value="/{id}", method=RequestMethod.GET)

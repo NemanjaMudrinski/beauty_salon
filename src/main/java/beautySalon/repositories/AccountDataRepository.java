@@ -11,4 +11,5 @@ import beautySalon.models.AccountData;
 public interface AccountDataRepository extends JpaRepository<AccountData, Long> {
 
 	Optional<AccountData> findByUsername (String username);
+	Optional<AccountData> findByEmail (String email);
 }

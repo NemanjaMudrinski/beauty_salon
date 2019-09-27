@@ -1,9 +1,12 @@
 package beautySalon.controllers;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.format.annotation.DateTimeFormat;
+import org.springframework.format.annotation.DateTimeFormat.ISO;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -76,5 +79,11 @@ public class ScheduleController {
     @RequestMapping(value="/past", method=RequestMethod.GET)
     public ResponseEntity<ArrayList<Schedule>> getScheduleHistory() {
         return new ResponseEntity<ArrayList<Schedule>>(scheduleService.getScheduleHistory(), HttpStatus.OK);
+    }
+    
+    @JsonView(HideOptionalProperties.class)
+    @RequestMapping(value="/time/{id}", method=RequestMethod.GET)
+    public ResponseEntity<ArrayList<Schedule>> getScheduleTimeByDay(@PathVariable("id")@DateTimeFormat(pattern = "yyyy-MM-dd") Date id) {
+        return new ResponseEntity<ArrayList<Schedule>>(scheduleService.getScheduleTimeByDay(id), HttpStatus.OK);
     }
 }

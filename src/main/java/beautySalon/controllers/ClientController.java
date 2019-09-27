@@ -3,14 +3,22 @@ package beautySalon.controllers;
 import java.io.IOException;
 import java.util.Optional;
 
+import javax.mail.MessagingException;
+import javax.mail.internet.MimeMessage;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.mail.javamail.JavaMailSender;
+import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RequestPart;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
@@ -18,6 +26,7 @@ import org.springframework.web.multipart.MultipartFile;
 import com.fasterxml.jackson.annotation.JsonView;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
+import beautySalon.models.Administrator;
 import beautySalon.models.Client;
 import beautySalon.services.ClientService;
 import beautySalon.services.FileService;
@@ -33,6 +42,11 @@ public class ClientController {
 	
 	@Autowired
 	FileService fileService;
+	
+	@Autowired
+    JavaMailSender sender;
+	
+
 	
 	@JsonView(HideOptionalProperties.class)
     @RequestMapping(value="/all", method=RequestMethod.GET)
@@ -77,7 +91,17 @@ public class ClientController {
         }
         return new ResponseEntity<Client>(HttpStatus.NOT_FOUND);
     }
-    
+   
+    @JsonView(HideOptionalProperties.class)
+    @RequestMapping(value="/isLoggedIn/{username}", method=RequestMethod.GET)
+    public ResponseEntity<Client> getLoggedIn(@PathVariable String username) {
+        Optional<Client> client= clientService.getLoggedInUser(username);
+        if(client.isPresent()) {
+            return new ResponseEntity<Client>(client.get(), HttpStatus.OK);
+        }
+        return new ResponseEntity<Client>(HttpStatus.NOT_FOUND);
+    }
+   
     @JsonView(HideOptionalProperties.class)
 	@RequestMapping(value = "/register", method = RequestMethod.POST, consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
 	public ResponseEntity<Client> addClient(@RequestPart("profileImage") Optional<MultipartFile> file, @RequestPart("data") String client) throws IOException {
@@ -111,7 +135,5 @@ public class ClientController {
 
         return new ResponseEntity<Client>(HttpStatus.NO_CONTENT);
     }
-
-    
-
+   
 }

@@ -1,12 +1,12 @@
 package beautySalon.services;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import beautySalon.models.Client;
 import beautySalon.models.Reservation;
 import beautySalon.repositories.ReservationRepository;
 
@@ -57,6 +57,12 @@ public class ReservationService {
 	}
 	
 	public ArrayList<Reservation> getClientConfirmedReservations(String username){
-		return reservationRepository.getClintConfirmedReservations(username);
+		Date day = new Date();
+		return reservationRepository.getClintConfirmedReservations(username, day);
+	}
+	
+	public ArrayList<Reservation> getAllReservationsByUser(String username){
+		Date day = new Date();
+		return reservationRepository.getAllReservationsByUsername(username, day);
 	}
 }

@@ -16,4 +16,8 @@ public interface ClientRepository extends JpaRepository<Client, Long> {
 	
 	@Query("SELECT r.client FROM Reservation r WHERE r.confirmed = true")
 	Optional<Client> getConfirmedAppoitmant(Long id);
+	
+	@Query("SELECT c FROM Client c WHERE c.accountData.username = ?1")
+	Optional<Client> getLoggedUser(String username);
+	
 }

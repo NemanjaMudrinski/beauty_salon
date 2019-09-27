@@ -27,7 +27,7 @@ public class Schedule {
 	@Temporal(TemporalType.DATE)
 	private Date day;
 	
-	@ManyToOne(cascade= {CascadeType.REFRESH, CascadeType.MERGE})
+	@ManyToOne(cascade= {CascadeType.MERGE})
 	private ScheduleTime time;
 	
 	@ManyToOne(cascade= {CascadeType.REFRESH, CascadeType.MERGE})
@@ -40,6 +40,17 @@ public class Schedule {
 	public Schedule() {
 		
 	}
+	
+	
+
+//	public ScheduleMakeUp(Date day, ScheduleTime time, Owner owner) {
+//	super();
+//	this.day = day;
+//	this.time = time;
+//	this.owner = owner;
+//}
+
+
 
 	public Long getId() {
 		return id;
@@ -57,13 +68,19 @@ public class Schedule {
 		this.day = day;
 	}
 
-	public ScheduleTime getTime() {
-		return time;
-	}
 
-	public void setTime(ScheduleTime time) {
-		this.time = time;
-	}
+
+//	public ScheduleTime getTime() {
+//		return time;
+//	}
+//
+//
+//
+//	public void setTime(ScheduleTime time) {
+//		this.time = time;
+//	}
+
+
 
 	public Owner getOwner() {
 		return owner;

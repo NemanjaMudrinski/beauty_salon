@@ -98,6 +98,10 @@ public class ReservationController {
     	return new ResponseEntity<ArrayList<Reservation>>(reservationService.getClientConfirmedReservations(clientUsername), HttpStatus.OK);
     }
     
-
+    @JsonView(HideOptionalProperties.class)
+    @RequestMapping(value="/all-by-username/{clientUsername}", method=RequestMethod.GET)
+    public ResponseEntity<ArrayList<Reservation>> getAllReservationsByUsername(@PathVariable String clientUsername) {
+    	return new ResponseEntity<ArrayList<Reservation>>(reservationService.getAllReservationsByUser(clientUsername), HttpStatus.OK);
+    }
 
 }

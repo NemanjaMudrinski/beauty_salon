@@ -22,9 +22,6 @@ public class ScheduleTime {
 	
 	private String time;
 	
-	@JsonView(ShowScheduleTime.class)
-	@OneToMany(mappedBy="time")
-	private Set<Schedule> schedule;
 	
 	public ScheduleTime() {
 		
@@ -46,13 +43,6 @@ public class ScheduleTime {
 		this.time = time;
 	}
 
-	public Set<Schedule> getSchedule() {
-		return schedule;
-	}
-
-	public void setSchedule(Set<Schedule> schedule) {
-		this.schedule = schedule;
-	}
 	
 	
 }

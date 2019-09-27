@@ -11,12 +11,14 @@ import org.apache.tika.Tika;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
+import beautySalon.models.Image;
 import beautySalon.models.PersonalData;
 
 @Service
 public class FileService {
 
 	private String defaultProfileImagePath = "src/main/resources/images/profile_images/default.png";
+	private String defaultImagePath = "src/main/resources/images/image/default.png";
 	
 	
 	public void saveProfileImage(MultipartFile file, String fileName, PersonalData personalData) throws IOException {
@@ -41,6 +43,32 @@ public class FileService {
 		    initialStream.close();
 		    outStream.close();
 		    personalData.setProfileImagePath("images/profile_images/" + fileName + defaultProfileImagePath.substring(defaultProfileImagePath.lastIndexOf(".")));
+		}
+	}
+	
+	
+	public void saveImages(MultipartFile file, String fileName, Image image) throws IOException {
+	    Tika tika = new Tika();
+	    String mimeType = tika.detect(file.getBytes());
+		if(file != null && (mimeType.equals("image/png") || mimeType.equals("image/jpeg"))) {
+			File convertFile = new File("src/main/resources/images/image/" + fileName + file.getOriginalFilename().substring(file.getOriginalFilename().lastIndexOf(".")));
+			convertFile.createNewFile();
+			FileOutputStream fout = new FileOutputStream(convertFile);
+			fout.write(file.getBytes());
+			fout.close();
+			image.setImagePath("images/image/" + fileName + file.getOriginalFilename().substring(file.getOriginalFilename().lastIndexOf(".")));
+		}
+		else {
+			InputStream initialStream = new FileInputStream(new File(defaultImagePath));
+		    byte[] buffer = new byte[initialStream.available()];
+		    initialStream.read(buffer);
+		    File targetFile = new File("src/main/resources/images/image/" + fileName + defaultImagePath.substring(defaultImagePath.lastIndexOf(".")));
+		    targetFile.createNewFile();
+		    OutputStream outStream = new FileOutputStream(targetFile);
+		    outStream.write(buffer);
+		    initialStream.close();
+		    outStream.close();
+		    image.setImagePath("images/image/" + fileName + defaultImagePath.substring(defaultImagePath.lastIndexOf(".")));
 		}
 	}
 

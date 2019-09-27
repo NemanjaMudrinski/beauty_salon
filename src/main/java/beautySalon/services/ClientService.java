@@ -2,7 +2,13 @@ package beautySalon.services;
 
 import java.util.Optional;
 
+import javax.mail.internet.MimeMessage;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.mail.javamail.JavaMailSender;
+import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -26,6 +32,13 @@ public class ClientService {
     
     @Autowired
 	PasswordEncoder passwordEncoder;
+    
+    @Autowired
+    public ClientService(JavaMailSender javaMailSender) {
+    	this.javaMailSender = javaMailSender;
+    }
+    
+    private JavaMailSender javaMailSender;
     
     public Iterable<Client> getClients() {
     	return clientRepository.findAll();
@@ -69,4 +82,7 @@ public class ClientService {
     	}
     }
 
+    public Optional<Client> getLoggedInUser(String username) {
+    	return clientRepository.getLoggedUser(username);
+    }
 }

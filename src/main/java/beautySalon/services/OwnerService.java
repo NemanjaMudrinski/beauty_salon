@@ -68,5 +68,9 @@ public class OwnerService {
     	}
     }
     
+    public Optional<Owner> getLoggedInUser(String username) {
+    	return ownerRepository.getLoggedUser(username);
+    }
+    
 
 }

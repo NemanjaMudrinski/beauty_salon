@@ -8,6 +8,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
 import beautySalon.models.Schedule;
+import beautySalon.models.ScheduleTime;
 
 @Repository
 public interface ScheduleRepository extends JpaRepository<Schedule, Long> {
@@ -18,5 +19,7 @@ public interface ScheduleRepository extends JpaRepository<Schedule, Long> {
 	@Query("SELECT sch FROM Schedule sch WHERE sch.day < ?1")
 	ArrayList<Schedule> getScheduleHistory(Date day);
 	
+	@Query("SELECT sch FROM Schedule sch WHERE sch.day = ?1")
+	ArrayList<Schedule> getScheduleTimeByDay(Date id);
 	
 }
