@@ -27,7 +27,7 @@ public class Schedule {
 	@Temporal(TemporalType.DATE)
 	private Date day;
 	
-	@ManyToOne(cascade= {CascadeType.MERGE})
+	@ManyToOne(cascade= {CascadeType.MERGE, CascadeType.REFRESH})
 	private ScheduleTime time;
 	
 	@ManyToOne(cascade= {CascadeType.REFRESH, CascadeType.MERGE})
@@ -70,15 +70,15 @@ public class Schedule {
 
 
 
-//	public ScheduleTime getTime() {
-//		return time;
-//	}
-//
-//
-//
-//	public void setTime(ScheduleTime time) {
-//		this.time = time;
-//	}
+	public ScheduleTime getTime() {
+		return time;
+	}
+
+
+
+	public void setTime(ScheduleTime time) {
+		this.time = time;
+	}
 
 
 

@@ -29,7 +29,7 @@ public class Client {
 	private PersonalData personalData;
 	
 	@JsonView(ShowReservation.class)
-	@OneToMany(mappedBy="client")
+	@OneToMany(mappedBy="client", cascade = CascadeType.REFRESH)
 	private Set<Reservation> reservation;
 	
 	public Client() {

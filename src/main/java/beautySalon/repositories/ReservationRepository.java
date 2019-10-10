@@ -9,6 +9,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
 import beautySalon.models.Reservation;
+import beautySalon.models.Schedule;
 
 @Repository
 public interface ReservationRepository extends JpaRepository<Reservation, Long> {
@@ -24,6 +25,9 @@ public interface ReservationRepository extends JpaRepository<Reservation, Long> 
 	
 	@Query("SELECT DISTINCT r FROM Reservation r WHERE r.client.accountData.username = ?1 AND r.schedule.day >= ?2")
 	ArrayList<Reservation> getAllReservationsByUsername(String username, Date today);
+	
+	@Query("SELECT r FROM Reservation r WHERE r.schedule.day >= ?1")
+	ArrayList<Reservation> getFutureReservation(Date day);
 	
 	
 }

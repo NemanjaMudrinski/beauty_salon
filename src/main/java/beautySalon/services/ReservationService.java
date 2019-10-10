@@ -65,4 +65,9 @@ public class ReservationService {
 		Date day = new Date();
 		return reservationRepository.getAllReservationsByUsername(username, day);
 	}
+	
+	public ArrayList<Reservation> getFutureReservations() {
+		Date day = new Date();
+		return reservationRepository.getFutureReservation(day);
+	}
 }

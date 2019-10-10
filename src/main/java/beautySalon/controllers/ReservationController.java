@@ -17,6 +17,7 @@ import com.fasterxml.jackson.annotation.JsonView;
 
 import beautySalon.models.Client;
 import beautySalon.models.Reservation;
+import beautySalon.models.Schedule;
 import beautySalon.services.ReservationService;
 import beautySalon.utils.View.HideOptionalProperties;
 
@@ -102,6 +103,12 @@ public class ReservationController {
     @RequestMapping(value="/all-by-username/{clientUsername}", method=RequestMethod.GET)
     public ResponseEntity<ArrayList<Reservation>> getAllReservationsByUsername(@PathVariable String clientUsername) {
     	return new ResponseEntity<ArrayList<Reservation>>(reservationService.getAllReservationsByUser(clientUsername), HttpStatus.OK);
+    }
+
+    @JsonView(HideOptionalProperties.class)
+    @RequestMapping(value="/future", method=RequestMethod.GET)
+    public ResponseEntity<ArrayList<Reservation>> getFuturereservation() {
+        return new ResponseEntity<ArrayList<Reservation>>(reservationService.getFutureReservations(), HttpStatus.OK);
     }
 
 }

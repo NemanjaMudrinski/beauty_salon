@@ -58,6 +58,7 @@ public class LoginService {
 			return new ResponseEntity<HashMap<String, String>>(data, HttpStatus.OK);
 			
 		} catch (Exception e) {
+			e.printStackTrace();
 			return new ResponseEntity<HashMap<String, String>>(HttpStatus.UNAUTHORIZED);
 		}
 	}

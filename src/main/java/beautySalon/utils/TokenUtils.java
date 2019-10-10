@@ -23,6 +23,7 @@ public class TokenUtils {
 	private Claims getClaims(String token) {
 		Claims claims;
 		
+		
 		try {
 			claims = Jwts.parser().setSigningKey(this.secret).parseClaimsJws(token).getBody();
 		}

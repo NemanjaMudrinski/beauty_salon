@@ -24,7 +24,7 @@ public class Reservation {
 	@ManyToOne()
 	private Schedule schedule;
 	
-	@ManyToOne(cascade= {CascadeType.MERGE})
+	@ManyToOne()
 	private Client client;
 	
 	public Reservation() {

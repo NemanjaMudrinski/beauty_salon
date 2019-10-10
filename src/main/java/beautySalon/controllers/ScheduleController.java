@@ -70,6 +70,25 @@ public class ScheduleController {
     }
     
     @JsonView(HideOptionalProperties.class)
+	@RequestMapping("/eventCount/{dayVar}/{monthVar}/{yearVar}") // List of events in one day
+	public ResponseEntity<ArrayList<Schedule>> getCalendarEvents(@PathVariable String dayVar, @PathVariable String monthVar, @PathVariable String yearVar) {
+		Integer day = Integer.parseInt(dayVar);
+		Integer month = Integer.parseInt(monthVar);
+		Integer year = Integer.parseInt(yearVar);
+		return new ResponseEntity<ArrayList<Schedule>>(scheduleService.getOneDayEvents(day, month, year), HttpStatus.OK);
+	}
+    
+    @JsonView(HideOptionalProperties.class)
+	@RequestMapping("/eventCount/{monthVar}/{yearVar}") // List of events in one month
+	public ResponseEntity<ArrayList<Schedule>> getCalendarEvents(@PathVariable String monthVar, @PathVariable String yearVar) {
+		Integer month = Integer.parseInt(monthVar);
+		Integer year = Integer.parseInt(yearVar);
+		return new ResponseEntity<ArrayList<Schedule>>(scheduleService.getEventCount(month, year), HttpStatus.OK);
+	}
+
+
+    
+    @JsonView(HideOptionalProperties.class)
     @RequestMapping(value="/future", method=RequestMethod.GET)
     public ResponseEntity<ArrayList<Schedule>> getScheduleByDay() {
         return new ResponseEntity<ArrayList<Schedule>>(scheduleService.getScheduleByDay(), HttpStatus.OK);

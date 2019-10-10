@@ -2,6 +2,7 @@ package beautySalon.services;
 
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -56,4 +57,14 @@ public class ScheduleService {
 	public ArrayList<Schedule> getScheduleTimeByDay(Date id) {
 		return scheduleRepository.getScheduleTimeByDay(id);
 	}
+	
+	public ArrayList<Schedule> getOneDayEvents(Integer day, Integer month, Integer year) {
+		return scheduleRepository.findEventsInDay(day, month, year);
+	}
+	
+	public ArrayList<Schedule> getEventCount(Integer month, Integer year) {
+		return scheduleRepository.findEventsInMonth(month, year);
+	}
+
+
 }

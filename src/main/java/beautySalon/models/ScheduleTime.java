@@ -22,7 +22,7 @@ public class ScheduleTime {
 	
 	private String time;
 	
-	
+
 	public ScheduleTime() {
 		
 	}
